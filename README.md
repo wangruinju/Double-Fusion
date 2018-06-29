@@ -35,7 +35,7 @@ python model.py
 
 # Spatiotemporal Structure
 
-In a resting-state fMRI study, we define the time-series data at voxel $v​$ in RO $c​$ as $Y_{cv}(t)​$, where $t​$ = 1, … , $T​$. In the same ROI $c​$, a spatiotemporal model for the resting-state fMRI time-series can be expressed as the following:
+In a resting-state fMRI study, we define the time-series data at voxel $v$ in RO $c$ as $Y_{cv}(t)$, where $t$=1, ..., $T$. In the same ROI $c$, a spatiotemporal model for the resting-state fMRI time-series can be expressed as the following:
 
 $$Y_{cv}(t) = \beta_c + b_{c}(v) + d_c + \epsilon_{cv}(t)$$
 
