@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
 # Double-Fusion
 This repository documentation is used to explain the model in the papar by Kang, Hakmook, et al. "[A bayesian double fusion model for resting-state brain connectivity using joint functional and structural data](https://www.liebertpub.com/doi/abs/10.1089/brain.2016.0447)." Brain connectivity 7.4 (2017): 219-227.
 
@@ -22,7 +17,20 @@ To install the Python packages for the project, clone the repository and run:
 conda env create -f environment.yml
 ```
 
-from inside the cloned directory. This assumes that [Anaconda Python](https://www.continuum.io/downloads) is installed.
+from inside the cloned directory. This assumes that [Anaconda Python](https://www.continuum.io/downloads) is installed. And `theanorc` file can follows as:
+
+```
+# cpu
+[global]
+floatX = float 32
+config.compile.timeout = 1000
+
+# gpu
+[global]
+floatX = float32
+config.compile.timeout = 1000
+device = cuda0
+```
 
 For Windows users, environmental variables need to be added in the system setting to use `conda` command in the terminal and `theano` package in Python environment. C++ compiler such as Cygwin needs to be installed before running `pymc3` and `theano` in Windows if it does not exist.
 
@@ -34,7 +42,8 @@ source activate double-fusion
 # run the model
 python model.py
 ```
-We also add some examples using GPU and Vanderbilt Advanced Computing Center for Research and Education (ACCRE).
+
+We also add some examples using CPU/GPU on Vanderbilt Advanced Computing Center for Research and Education (ACCRE).
 
 # Spatiotemporal Structure
 
@@ -126,5 +135,5 @@ $$\lambda \sim Beta(1, 1)$$
 $$w \sim Beta(1, 1)$$
 Also, the covariance matrix for functional connectivity and structural connectivity is constructed via a prior diagonal matrix. The diagonal element is generated from a function of a $\sigma_{d_c}$ parameter in a logarithmic scale:
 $$\sigma_{d_c} \sim Unif(-8, 8)$$
-Finally, with adding all the separate components, we assume the observed values $Y_{obs}$ follow a Gaussian distribution $Y_{obs} \sim N(\boldsymbol{Y}_{cv}, \sigma^2)$ under the Bayesian framework and $\sigma$ has a prior distribution:
+Finally, with adding all the separate components, we assume the observed values $\boldsymbol{Y}_{obs}$ follow a Gaussian distribution $\boldsymbol{Y}_{obs} \sim N(\boldsymbol{Y}_{cv}, \sigma^2)$ under the Bayesian framework and $\sigma$ has a prior distribution:
 $$\sigma \sim Unif(0, 100)$$

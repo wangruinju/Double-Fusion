@@ -138,14 +138,24 @@ $(document).ready(function () {
 <h1>Installation</h1>
 <p>To install the Python packages for the project, clone the repository and run:</p>
 <pre><code>conda env create -f environment.yml</code></pre>
-<p>from inside the cloned directory. This assumes that <a href="https://www.continuum.io/downloads">Anaconda Python</a> is installed.</p>
+<p>from inside the cloned directory. This assumes that <a href="https://www.continuum.io/downloads">Anaconda Python</a> is installed. And <code>theanorc</code> file can follows as:</p>
+<pre><code># cpu
+[global]
+floatX = float 32
+config.compile.timeout = 1000
+
+# gpu
+[global]
+floatX = float32
+config.compile.timeout = 1000
+device = cuda0</code></pre>
 <p>For Windows users, environmental variables need to be added in the system setting to use <code>conda</code> command in the terminal and <code>theano</code> package in Python environment. C++ compiler such as Cygwin needs to be installed before running <code>pymc3</code> and <code>theano</code> in Windows if it does not exist.</p>
 <p>To run the model:</p>
 <pre><code># activate the environment
 source activate double-fusion
 # run the model
 python model.py</code></pre>
-<p>We also add some examples using GPU and Vanderbilt Advanced Computing Center for Research and Education (ACCRE).</p>
+<p>We also add some examples using CPU/GPU on Vanderbilt Advanced Computing Center for Research and Education (ACCRE).</p>
 </div>
 <div id="spatiotemporal-structure" class="section level1">
 <h1>Spatiotemporal Structure</h1>
@@ -188,7 +198,7 @@ python model.py</code></pre>
 </div>
 <div id="prior-distribution" class="section level1">
 <h1>Prior Distribution</h1>
-<p>Because we have no prior information about the values of each parameter, we decide to apply uninformative priors. In the exponential function, we assume the corresponding parameters follow: <span class="math display">\[\psi_c \sim Unif(0, 20)\]</span> <span class="math display">\[ \sigma_{b_c} \sim Unif (0, 100)\]</span> In the temporal correlation, we assume the prior distribution of each parameter as: <span class="math display">\[\phi_{cv} \sim Unif(0, 1)\]</span> <span class="math display">\[\sigma_{cv} \sim Unif(0, 100)\]</span> And the grand mean <span class="math inline">\(\beta_c\)</span>: <span class="math display">\[\beta_c \sim N(0, 0.01^2)\]</span> Two weighted parameters <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(w\)</span> in the double fusion model: <span class="math display">\[\lambda \sim Beta(1, 1)\]</span> <span class="math display">\[w \sim Beta(1, 1)\]</span> Also, the covariance matrix for functional connectivity and structural connectivity is constructed via a prior diagonal matrix. The diagonal element is generated from a function of a <span class="math inline">\(\sigma_{d_c}\)</span> parameter in a logarithmic scale: <span class="math display">\[\sigma_{d_c} \sim Unif(-8, 8)\]</span> Finally, with adding all the separate components, we assume the observed values <span class="math inline">\(Y_{obs}\)</span> follow a Gaussian distribution <span class="math inline">\(Y_{obs} \sim N(\boldsymbol{Y}_{cv}, \sigma^2)\)</span> under the Bayesian framework and <span class="math inline">\(\sigma\)</span> has a prior distribution: <span class="math display">\[\sigma \sim Unif(0, 100)\]</span></p>
+<p>Because we have no prior information about the values of each parameter, we decide to apply uninformative priors. In the exponential function, we assume the corresponding parameters follow: <span class="math display">\[\psi_c \sim Unif(0, 20)\]</span> <span class="math display">\[ \sigma_{b_c} \sim Unif (0, 100)\]</span> In the temporal correlation, we assume the prior distribution of each parameter as: <span class="math display">\[\phi_{cv} \sim Unif(0, 1)\]</span> <span class="math display">\[\sigma_{cv} \sim Unif(0, 100)\]</span> And the grand mean <span class="math inline">\(\beta_c\)</span>: <span class="math display">\[\beta_c \sim N(0, 0.01^2)\]</span> Two weighted parameters <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(w\)</span> in the double fusion model: <span class="math display">\[\lambda \sim Beta(1, 1)\]</span> <span class="math display">\[w \sim Beta(1, 1)\]</span> Also, the covariance matrix for functional connectivity and structural connectivity is constructed via a prior diagonal matrix. The diagonal element is generated from a function of a <span class="math inline">\(\sigma_{d_c}\)</span> parameter in a logarithmic scale: <span class="math display">\[\sigma_{d_c} \sim Unif(-8, 8)\]</span> Finally, with adding all the separate components, we assume the observed values <span class="math inline">\(\boldsymbol{Y}_{obs}\)</span> follow a Gaussian distribution <span class="math inline">\(\boldsymbol{Y}_{obs} \sim N(\boldsymbol{Y}_{cv}, \sigma^2)\)</span> under the Bayesian framework and <span class="math inline">\(\sigma\)</span> has a prior distribution: <span class="math display">\[\sigma \sim Unif(0, 100)\]</span></p>
 </div>
 
 
