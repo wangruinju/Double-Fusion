@@ -28,24 +28,22 @@ python model.py
 
 # Spatiotemporal Structure
 
-In a resting-state fMRI study, we define the time-series data at voxel v in RO c as Y_{cv}(t), where t = 1, … , T. In the same ROI c, a spatiotemporal model for the resting-state fMRI time-series can be expressed as the following:
+In a resting-state fMRI study, we define the time-series data at voxel $v​$ in RO $c​$ as $Y_{cv}(t)​$, where $t​$ = 1, … , $T​$. In the same ROI $c​$, a spatiotemporal model for the resting-state fMRI time-series can be expressed as the following:
 
-Y_{cv}(t) = \beta_c + b_{c}(v) + d_c + \epsilon_{cv}(t)
+$$Y_{cv}(t) = \beta_c + b_{c}(v) + d_c + \epsilon_{cv}(t)$$
 
-In the formula above, \beta_c is the grand mean in the ROI c. b_c(v) represents a zeromean voxel-specific random effect in the ROI c and captures the local spatial dependency between voxels. A kernel function K_c(v, v') is defined as the covariance structure for local spatial covariance. It is a function of Euclidean distance:
+In the formula above, $\beta_c$ is the grand mean in the ROI $c$. $b_c(v)$ represents a zeromean voxel-specific random effect in the ROI $c$ and captures the local spatial dependency between voxels. A kernel function $K_c(v, v')$ is defined as the covariance structure for local spatial covariance. It is a function of Euclidean distance:
 
-Cov(b_c(v), b_c(v')) = K_c() K_c(||v-v'||)
+$$Cov(b_c(v), b_c(v')) = K_c() K_c(||v-v'||)$$
 
-Note that the voxel-specific random effect b values are uncorrelated when two voxels
+Note that the voxel-specific random effect $b$ values are uncorrelated when two voxels
 
-correspond to different ROIs (c \neq c'), which means the expression below:
+correspond to different ROIs ($c \neq c'$), which means the expression below:
 
-Cov(b_c(v), b_c(v')) = 0 \text{ at } c \neq c'
+$$Cov(b_c(v), b_c(v')) = 0 \text{ at } c \neq c'$$
 
 This kernel function can be any valid spatial covariance function. In our model, we apply the exponential function to represent the covariance structure between voxels:
 
-Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-||v-v'||/\phi_c)
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-||v-v'||/\phi_c)$$
 
-where  \sigma_{b_c}^2 is defined as the spatial variance at each voxel in the ROI c and ||v-v'|| denotes the Euclidean distance between two voxels, c and c'. \phi_c represents the ROI-specific decaying parameter in the exponential structure.
-
-# 
+where $ \sigma_{b_c}^2$ is defined as the spatial variance at each voxel in the ROI $c$ and $||v-v'||$ denotes the Euclidean distance between two voxels, $c$ and $c'$. $\phi_c$ represents the ROI-specific decaying parameter in the exponential structure.
