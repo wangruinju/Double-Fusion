@@ -73,5 +73,4 @@ dependencies:
 - vs2015_runtime=14.0.25420=0
 - wheel=0.29.0=py36_0
 - wincertstore=0.2=py36_0
-prefix: C:\Users\Rui\AppData\Local\conda\conda\envs\doublefusion
 
