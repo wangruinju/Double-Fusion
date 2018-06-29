@@ -32,7 +32,7 @@ In a resting-state fMRI study, we define the time-series data at voxel $v​$ in
 
 $$Y_{cv}(t) = \beta_c + b_{c}(v) + d_c + \epsilon_{cv}(t)$$
 
-In the formula above, $\beta_c$ is the grand mean in the ROI $c$. $b_c(v)$ represents a zeromean voxel-specific random effect in the ROI $c$ and captures the local spatial dependency between voxels. A kernel function $K_c(v, v')$ is defined as the covariance structure for local spatial covariance. It is a function of Euclidean distance:
+In the formula above, $\beta_c$ is the grand mean in the ROI $c$. $b_c(v)$ represents a zero mean voxel-specific random effect in the ROI $c$ and captures the local spatial dependency between voxels. A kernel function $K_c(v, v')$ is defined as the covariance structure for local spatial covariance. It is a function of Euclidean distance:
 
 $$Cov(b_c(v), b_c(v')) = K_c() K_c(||v-v'||)$$
 
