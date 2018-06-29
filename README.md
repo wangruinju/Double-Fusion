@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # Double-Fusion
 This repository documentation is used to explain the model in the papar by Kang, Hakmook, et al. "[A bayesian double fusion model for resting-state brain connectivity using joint functional and structural data](https://www.liebertpub.com/doi/abs/10.1089/brain.2016.0447)." Brain connectivity 7.4 (2017): 219-227.
 
@@ -34,7 +39,7 @@ $$Y_{cv}(t) = \beta_c + b_{c}(v) + d_c + \epsilon_{cv}(t)$$
 
 In the formula above, $\beta_c$ is the grand mean in the ROI $c$. $b_c(v)$ represents a zero mean voxel-specific random effect in the ROI $c$ and captures the local spatial dependency between voxels. A kernel function $K_c(v, v')$ is defined as the covariance structure for local spatial covariance. It is a function of Euclidean distance:
 
-$$Cov(b_c(v), b_c(v')) = K_c() K_c(||v-v'||)$$
+$$Cov(b_c(v), b_c(v')) = K_c(||v-v'||)$$
 
 Note that the voxel-specific random effect $b$ values are uncorrelated when two voxels
 
