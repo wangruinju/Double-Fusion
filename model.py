@@ -37,7 +37,7 @@ def get_dist(name, n):
         Dist.append(np.array([row for row in distreader]).astype(float))
     return Dist
 
-def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, n, sample_size, tune_size):
+def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel, n, sample_size, tune_size):
     """
     index: data
     in_dir: set up work directory
@@ -46,6 +46,7 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
     func_filename: filename for functional connectivity
     struct_filename: filename for structural connectivity
     dist_filename: filename for distribution matrix of n ROIs 
+    kernel: "exponential" or "gaussian" or "matern52" or "matern32"
     n: ROI number
     sample_size: NUTS number
     tune_size: burning number
@@ -108,8 +109,17 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
 
         Mu_all_temp = []
         for i in range(n):
-            # exponential covariance function
-            H_temp = tt.sqr(spat_prec[i])*tt.exp(-phi_s[i]*Dist[i])
+            # covariance kernel function
+            r = Dist[i]*phi_s[i]
+            if kernel == "exponential":
+                H_temp = tt.sqr(spat_prec[i])*tt.exp(-r)
+            elif kernel == "gaussian":
+                H_temp = tt.sqr(spat_prec[i])*tt.exp(-tt.sqr(r))
+            elif kernel == "matern52":
+                H_temp = tt.sqr(spat_prec[i])*((1.0+tt.sqrt(5.0)*r+5.0/3.0*tt.sqr(r))*tt.exp(-1.0*tt.sqrt(5.0)*r))
+            elif kernel == "matern32":
+                H_temp = tt.sqr(spat_prec[i])*(1.0+tt.sqrt(3.0)*r)*tt.exp(-tt.sqrt(3.0)*r)
+            
             L_H_temp = tt.slinalg.cholesky(H_temp)
             Mu_all_temp.append(B[i] + D[i] + one_m_vec*W_T[:,i] + tt.dot(L_H_temp, tt.reshape(H_base[:,i], (m, 1)))*one_k_vec)
         MU_all = tt.concatenate(Mu_all_temp, axis = 0)
@@ -144,5 +154,5 @@ tune_size = 1000
 
 # run the model
 for index in index_list:
-    run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, n, sample_size, tune_size)
+    run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel = "gaussian", n, sample_size, tune_size)
 
