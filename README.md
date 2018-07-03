@@ -59,9 +59,19 @@ Note that the voxel-specific random effect $b$ values are uncorrelated when two 
 
 $$Cov(b_c(v), b_c(v')) = 0 \text{ at } c \neq c'$$
 
-This kernel function can be any valid spatial covariance function. In our model, we apply the exponential function to represent the covariance structure between voxels:
+This kernel function can be any valid spatial covariance function like the following:
 
-$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-||v-v'||/\psi_c)$$
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\frac{\lVert v-v' \rVert}{\psi_c})$$
+
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-{\frac{\lVert v-v' \rVert}{\psi_c}}^2)$$
+
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{5}\frac{\lVert v-v' \rVert}{\psi_c}+\frac{5}{3}(\frac{\lVert v-v' \rVert}{\psi_c})^2)exp(-\sqrt{5}\frac{\lVert v-v' \rVert}{\psi_c})$$
+
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{3}\frac{\lVert v-v' \rVert}{\psi_c})exp(-\sqrt{3}\frac{\lVert v-v' \rVert}{\psi_c})$$
+
+In our model, we apply the exponential function to represent the covariance structure between voxels:
+
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\frac{\lVert v-v' \rVert}{\psi_c})$$
 
 where $\sigma_{b_c}^2$ is defined as the spatial variance at each voxel in the ROI $c$ and $||v-v'||$ denotes the Euclidean distance between two voxels, $c$ and $c'$. $\psi_c$ represents the ROI-specific decaying parameter in the exponential structure.
 
