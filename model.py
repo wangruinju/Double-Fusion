@@ -37,7 +37,8 @@ def get_dist(name, n):
         Dist.append(np.array([row for row in distreader]).astype(float))
     return Dist
 
-def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel, n, sample_size, tune_size):
+def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, 
+    kernel = "exponential", n, sample_size = 500, tune_size = 500):
     """
     index: data
     in_dir: set up work directory
@@ -67,7 +68,7 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
     with pm.Model() as model_generator:
         
         # convariance matrix
-        log_Sig = pm.Uniform("log_Sig", -8, 8, shape=(n, ))
+        log_Sig = pm.Uniform("log_Sig", -8, 8, shape = (n, ))
         SQ = tt.diag(tt.sqrt(tt.exp(log_Sig)))
         Func_Covm = tt.dot(tt.dot(SQ, mFunc), SQ)
         Struct_Convm = tt.dot(tt.dot(SQ, Struct), SQ)
@@ -101,7 +102,7 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
         # add all parts together
         one_m_vec = tt.ones((m, 1))
         one_k_vec = tt.ones((1, k))
-        D = pm.MvNormal("D", mu=tt.zeros(n), cov=Cov_mat_v, shape = (n, ))
+        D = pm.MvNormal("D", mu = tt.zeros(n), cov = Cov_mat_v, shape = (n, ))
         phi_s = pm.Uniform("phi_s", 0, 20, shape = (n, ))
         spat_prec = pm.Uniform("spat_prec", 0, 100, shape = (n, ))
         H_base = pm.Normal("H_base", 0, 1, shape = (m, n))
@@ -149,7 +150,8 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
 
     # save as pandas format and output the csv file
     save_trace = pm.trace_to_dataframe(trace)
-    save_trace.to_csv(out_dir + date.today().strftime("%m_%d_%y") + "_sample_size_" + str(sample_size) + "_index_" + str(index) + ".csv")
+    save_trace.to_csv(out_dir + date.today().strftime("%m_%d_%y") + \
+        "_sample_size_" + str(sample_size) + "_index_" + str(index) + ".csv")
 
 # initializing parameters
 index_list = [8007, 8012, 8049, 8050, 8068, 8072, 8077, 8080, \
@@ -170,5 +172,6 @@ tune_size = 1000
 
 # run the model
 for index in index_list:
-    run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel = "exponential", n, sample_size, tune_size)
+    run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, 
+        kernel = "exponential", n, sample_size, tune_size)
 
