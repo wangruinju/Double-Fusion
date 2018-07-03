@@ -73,11 +73,11 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
         Struct_Convm = tt.dot(tt.dot(SQ, Struct), SQ)
         
         # double fusion of structural and FC
-        L_fc_vec = tt.reshape(tt.slinalg.cholesky(tt.squeeze(Func_Covm)).T[np.triu_indices(n)], (n_vec, ))
-        L_st_vec = tt.reshape(tt.slinalg.cholesky(tt.squeeze(Struct_Convm)).T[np.triu_indices(n)], (n_vec, ))
-        Struct_vec = tt.reshape(Struct[np.triu_indices(n)], (n_vec, ))
-        lambdaw = pm.Beta("lambdaw", alpha=1, beta=1, shape=(n_vec, ))
-        Kf = pm.Beta("Kf", alpha=1, beta=1, shape=(n_vec, ))
+        L_fc_vec = tt.reshape(tt.slinalg.cholesky(tt.squeeze(Func_Covm)).T[np.triu_indices(n)], shape = (n_vec, ))
+        L_st_vec = tt.reshape(tt.slinalg.cholesky(tt.squeeze(Struct_Convm)).T[np.triu_indices(n)], shape = (n_vec, ))
+        Struct_vec = tt.reshape(Struct[np.triu_indices(n)], shape = (n_vec, ))
+        lambdaw = pm.Beta("lambdaw", alpha = 1, beta = 1, shape = (n_vec, ))
+        Kf = pm.Beta("Kf", alpha = 1, beta = 1, shape = (n_vec, ))
         rhonn = Kf*( (1-lambdaw)*L_fc_vec + lambdaw*L_st_vec ) + \
             (1-Kf)*( (1-Struct_vec*lambdaw)*L_fc_vec + Struct_vec*lambdaw*L_st_vec )
         
@@ -90,9 +90,9 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
         rhoNew = pm.Deterministic("rhoNew", rho[np.triu_indices(n,1)])
        
         # temporal correlation AR(1)
-        phi_T = pm.Uniform("phi_T", 0, 1, shape=(n, ))
-        sigW_T = pm.Uniform("sigW_T", 0, 100, shape=(n, ))
-        B = pm.Normal("B", 0, 0.01, shape=(n, ))
+        phi_T = pm.Uniform("phi_T", 0, 1, shape = (n, ))
+        sigW_T = pm.Uniform("sigW_T", 0, 100, shape = (n, ))
+        B = pm.Normal("B", 0, 0.01, shape = (n, ))
         muW1 = Y_mean - B # get the shifted mean
         mean_overall = muW1/(1.0-phi_T) # AR(1) mean
         tau_overall = (1.0-tt.sqr(phi_T))/tt.sqr(sigW_T) # AR (1) variance
