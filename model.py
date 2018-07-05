@@ -119,7 +119,7 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
         elif kernel == "gaussian":
             for i in range(n):
                 r = Dist[i]*phi_s[i]
-                H_temp = tt.sqr(spat_prec[i])*tt.exp(-tt.sqr(r))
+                H_temp = tt.sqr(spat_prec[i])*tt.exp(-tt.sqr(r)*0.5)
                 L_H_temp = tt.slinalg.cholesky(H_temp)
                 Mu_all_update = tt.set_subtensor(Mu_all[m*i:m*(i+1), :], B[i] + D[i] + one_m_vec*W_T[:,i] + \
                     tt.dot(L_H_temp, tt.reshape(H_base[:,i], (m, 1)))*one_k_vec)
