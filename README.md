@@ -1,7 +1,7 @@
 # Double-Fusion
 This repository documentation is used to explain the model in the papar by Kang, Hakmook, et al. "[A bayesian double fusion model for resting-state brain connectivity using joint functional and structural data](https://www.liebertpub.com/doi/abs/10.1089/brain.2016.0447)." Brain connectivity 7.4 (2017): 219-227.
 
-Since GitHub doest not render the equation in Markdown, you can read the [Readme](https://htmlpreview.github.io/?https://github.com/wangruinju/Double-Fusion/blob/master/README.html)in HTML or [slides](https://github.com/wangruinju/Double-Fusion/blob/master/slides.pdf). 
+Since GitHub doest not render the equation in Markdown, you can read the [Readme](https://htmlpreview.github.io/?https://github.com/wangruinju/Double-Fusion/blob/master/README.html) in HTML or [slides](https://github.com/wangruinju/Double-Fusion/blob/master/slides.pdf). 
 
 # Introduction
 
