@@ -161,12 +161,13 @@ python model.py</code></pre>
 <p>Note that the voxel-specific random effect <span class="math inline">\(b\)</span> values are uncorrelated when two voxels correspond to different ROIs (<span class="math inline">\(c \neq c'\)</span>), which means the expression below:</p>
 <p><span class="math display">\[Cov(b_c(v), b_c(v')) = 0 \text{ at } c \neq c'\]</span></p>
 <p>This kernel function can be any valid spatial covariance function like the following:</p>
-<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\frac{\lVert v-v' \rVert}{\psi_c})\]</span></p>
-<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-{\frac{\lVert v-v' \rVert}{\psi_c}}^2)\]</span></p>
-<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{5}\frac{\lVert v-v' \rVert}{\psi_c}+\frac{5}{3}(\frac{\lVert v-v' \rVert}{\psi_c})^2)exp(-\sqrt{5}\frac{\lVert v-v' \rVert}{\psi_c})\]</span></p>
-<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{3}\frac{\lVert v-v' \rVert}{\psi_c})exp(-\sqrt{3}\frac{\lVert v-v' \rVert}{\psi_c})\]</span></p>
+<p><span class="math display">\[r=\lVert v-v' \rVert \psi_c\]</span></p>
+<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-r)\]</span></p>
+<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-r^2)\]</span></p>
+<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{5}r+\frac{5}{3}r^2)exp(-\sqrt{5}r)\]</span></p>
+<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{3}r)exp(-\sqrt{3}r)\]</span></p>
 <p>In our model, we apply the exponential function to represent the covariance structure between voxels:</p>
-<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\frac{\lVert v-v' \rVert}{\psi_c})\]</span> where <span class="math inline">\(\sigma_{b_c}^2\)</span> is defined as the spatial variance at each voxel in the ROI <span class="math inline">\(c\)</span> and <span class="math inline">\(||v-v'||\)</span> denotes the Euclidean distance between two voxels, <span class="math inline">\(c\)</span> and <span class="math inline">\(c'\)</span>. <span class="math inline">\(\psi_c\)</span> represents the ROI-specific decaying parameter in the exponential structure.</p>
+<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\lVert v-v' \rVert \psi_c)\]</span> where <span class="math inline">\(\sigma_{b_c}^2\)</span> is defined as the spatial variance at each voxel in the ROI <span class="math inline">\(c\)</span> and <span class="math inline">\(||v-v'||\)</span> denotes the Euclidean distance between two voxels, <span class="math inline">\(c\)</span> and <span class="math inline">\(c'\)</span>. <span class="math inline">\(\psi_c\)</span> represents the reversed ROI-specific decaying parameter in the exponential structure.</p>
 <p><span class="math inline">\(d_c\)</span> is a zero-mean ROI-specific random effect. Its covariance structure is used to model functional connectivity and expressed as <span class="math inline">\(Cov(b_c(v), b_c(v'))\)</span>. We will explain how this effect results from naive FC and DTI data with a series of prior information.</p>
 <p>Finally, <span class="math inline">\(\epsilon_{cv}(t)\)</span> is the noise part. We assume this voxel-specific noise follows an autoregressive (AR) temporal process with order one, that is AR (1). So, the expression of the noise follows:</p>
 <p><span class="math display">\[\epsilon_{cv}(t)=\delta_c + \phi_{cv}\epsilon_{cv}(t-1)+w(t)\]</span></p>

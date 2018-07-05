@@ -59,21 +59,23 @@ Note that the voxel-specific random effect $b$ values are uncorrelated when two 
 
 $$Cov(b_c(v), b_c(v')) = 0 \text{ at } c \neq c'$$
 
+
 This kernel function can be any valid spatial covariance function like the following:
 
-$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\frac{\lVert v-v' \rVert}{\psi_c})$$
+$$r=\lVert v-v' \rVert \psi_c$$
 
-$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-{\frac{\lVert v-v' \rVert}{\psi_c}}^2)$$
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-r)$$
 
-$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{5}\frac{\lVert v-v' \rVert}{\psi_c}+\frac{5}{3}(\frac{\lVert v-v' \rVert}{\psi_c})^2)exp(-\sqrt{5}\frac{\lVert v-v' \rVert}{\psi_c})$$
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-r^2)$$
 
-$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{3}\frac{\lVert v-v' \rVert}{\psi_c})exp(-\sqrt{3}\frac{\lVert v-v' \rVert}{\psi_c})$$
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{5}r+\frac{5}{3}r^2)exp(-\sqrt{5}r)$$
+
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{3}r)exp(-\sqrt{3}r)$$
 
 In our model, we apply the exponential function to represent the covariance structure between voxels:
 
-$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\frac{\lVert v-v' \rVert}{\psi_c})$$
-
-where $\sigma_{b_c}^2$ is defined as the spatial variance at each voxel in the ROI $c$ and $||v-v'||$ denotes the Euclidean distance between two voxels, $c$ and $c'$. $\psi_c$ represents the ROI-specific decaying parameter in the exponential structure.
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\lVert v-v' \rVert \psi_c)$$
+where $\sigma_{b_c}^2$ is defined as the spatial variance at each voxel in the ROI $c$ and $||v-v'||$ denotes the Euclidean distance between two voxels, $c$ and $c'$. $\psi_c$ represents the reversed ROI-specific decaying parameter in the exponential structure. 
 
 $d_c$ is a zero-mean ROI-specific random effect. Its covariance structure is used to model functional connectivity and expressed as $Cov(b_c(v), b_c(v'))$. We will explain how this effect results from naive FC and DTI data with a series of prior information. 
 
