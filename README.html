@@ -163,7 +163,7 @@ python model.py</code></pre>
 <p>This kernel function can be any valid spatial covariance function like the following:</p>
 <p><span class="math display">\[r=\lVert v-v' \rVert \psi_c\]</span></p>
 <p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-r)\]</span></p>
-<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-r^2)\]</span></p>
+<p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\frac{1}{2}r^2)\]</span></p>
 <p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{5}r+\frac{5}{3}r^2)exp(-\sqrt{5}r)\]</span></p>
 <p><span class="math display">\[Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{3}r)exp(-\sqrt{3}r)\]</span></p>
 <p>In our model, we apply the exponential function to represent the covariance structure between voxels:</p>

@@ -66,7 +66,7 @@ $$r=\lVert v-v' \rVert \psi_c$$
 
 $$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-r)$$
 
-$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-r^2)$$
+$$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2exp(-\frac{1}{2}r^2)$$
 
 $$Cov(b_c(v), b_c(v')) = \sigma_{b_c}^2(1+\sqrt{5}r+\frac{5}{3}r^2)exp(-\sqrt{5}r)$$
 
