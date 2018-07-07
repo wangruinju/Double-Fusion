@@ -93,7 +93,7 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
         # temporal correlation AR(1)
         phi_T = pm.Uniform("phi_T", 0, 1, shape = (n, ))
         sigW_T = pm.Uniform("sigW_T", 0, 100, shape = (n, ))
-        B = pm.Normal("B", 0, 0.01, shape = (n, ))
+        B = pm.Normal("B", 0, 100, shape = (n, ))
         muW1 = Y_mean - B # get the shifted mean
         mean_overall = muW1/(1.0-phi_T) # AR(1) mean
         tau_overall = (1.0-tt.sqr(phi_T))/tt.sqr(sigW_T) # AR (1) variance
