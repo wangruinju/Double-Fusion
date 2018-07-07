@@ -141,7 +141,7 @@ In the temporal correlation, we assume the prior distribution of each parameter 
 $$\phi_{cv} \sim Unif(0, 1)$$
 $$\sigma_{cv} \sim Unif(0, 100)$$
 And the grand mean $\beta_c$:
-$$\beta_c \sim N(0, 0.01^2)$$
+$$\beta_c \sim N(0, 100^2)$$
 Two weighted parameters $\lambda$ and $w$ in the double fusion model:
 $$\lambda \sim Beta(1, 1)$$
 $$w \sim Beta(1, 1)$$
