@@ -37,7 +37,7 @@ def get_dist(name, n):
         Dist.append(np.array([row for row in distreader]).astype(float))
     return Dist
 
-def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel = "exponential", n, sample_size = 500, tune_size = 500):
+def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel, n, sample_size, tune_size):
     """
     index: data
     in_dir: set up work directory
@@ -171,6 +171,5 @@ tune_size = 1000
 
 # run the model
 for index in index_list:
-    run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, 
-        kernel = "exponential", n, sample_size, tune_size)
+    run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel = "exponential", n, sample_size, tune_size)
 
