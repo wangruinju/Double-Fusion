@@ -73,9 +73,9 @@ def run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filen
         Struct_Convm = tt.dot(tt.dot(SQ, Struct), SQ)
         
         # double fusion of structural and FC
-        L_fc_vec = tt.reshape(tt.slinalg.cholesky(tt.squeeze(Func_Covm)).T[np.triu_indices(n)], shape = (n_vec, ))
-        L_st_vec = tt.reshape(tt.slinalg.cholesky(tt.squeeze(Struct_Convm)).T[np.triu_indices(n)], shape = (n_vec, ))
-        Struct_vec = tt.reshape(Struct[np.triu_indices(n)], shape = (n_vec, ))
+        L_fc_vec = tt.reshape(tt.slinalg.cholesky(tt.squeeze(Func_Covm)).T[np.triu_indices(n)], (n_vec, ))
+        L_st_vec = tt.reshape(tt.slinalg.cholesky(tt.squeeze(Struct_Convm)).T[np.triu_indices(n)], (n_vec, ))
+        Struct_vec = tt.reshape(Struct[np.triu_indices(n)], (n_vec, ))
         lambdaw = pm.Beta("lambdaw", alpha = 1, beta = 1, shape = (n_vec, ))
         Kf = pm.Beta("Kf", alpha = 1, beta = 1, shape = (n_vec, ))
         rhonn = Kf*( (1-lambdaw)*L_fc_vec + lambdaw*L_st_vec ) + \
