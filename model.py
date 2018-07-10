@@ -165,11 +165,12 @@ data_filename = "ROI_timeseries_data"
 func_filename = "DMN_MeanFunctional_Connectivity"
 struct_filename = "DMN_StructuralConnectivity"
 dist_filename = "distMatrix_ROI"
+kernel = "exponential"
 n = 14
 sample_size = 1000
 tune_size = 1000
 
 # run the model
 for index in index_list:
-    run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel = "exponential", n, sample_size, tune_size)
+    run_model(index, in_dir, out_dir, data_filename, func_filename, struct_filename, dist_filename, kernel, n, sample_size, tune_size)
 
