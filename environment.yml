@@ -1,7 +1,6 @@
 name: doublefusion
 channels:
 - conda-forge
-- defaults
 dependencies:
 - matplotlib=2.2.2=py36_1
 - pandas=0.23.1=py36_0
