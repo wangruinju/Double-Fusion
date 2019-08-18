@@ -8,6 +8,12 @@ import os
 import timeit
 from datetime import date
 
+<<<<<<< HEAD
+=======
+import warnings
+warnings.filterwarnings('ignore')
+
+>>>>>>> Update the model to estimate dynamic fc using slideing time windows
 def get_data(name):
     yreader = csv.reader(open(name + ".csv"))
     Y = np.array([row for row in yreader]).astype(float)
