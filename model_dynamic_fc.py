@@ -189,5 +189,5 @@ for index in index_list:
     t_interval = 25 # set the interval length to be 25
     t_total = Y.shape[1] # the total is 150
     for slide_index in range(t_total-t_interval):
-        Y_slide = Y[:, slide_index:(slide_index + t_interval)]
+        Y_slide = Y[:, slide_index:(slide_index+t_interval)]
         run_model(index, slide_index, Y_slide, mFunc, Struct, Dist, n, kernel, lambdaw, Kf, sample_size, tune_size)
