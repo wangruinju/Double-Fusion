@@ -41,9 +41,10 @@ def get_dist(name, n):
         Dist.append(np.array([row for row in distreader]).astype(float))
     return Dist
 
-def run_model(index, Y, mFunc, Struct, Dist, n, kernel, lambdaw, Kf, sample_size, tune_size):
+def run_model(index, slide_index, Y, mFunc, Struct, Dist, n, kernel, lambdaw, Kf, sample_size, tune_size):
     """
     index: index of object data
+    slide_index: index of slide window
     Y: time-series data
     mFunc: functional connectivity
     Struct: structural connectivity
@@ -187,6 +188,6 @@ for index in index_list:
     Dist = get_dist(dist_filename, n)
     t_interval = 25 # set the interval length to be 25
     t_total = Y.shape[1] # the total is 150
-    for i in range(t_total-t_interval):
-        Y_slide = Y[:, i:(i+t_interval)]
-        run_model(index, Y_slide, mFunc, Struct, Dist, n, kernel, lambdaw, Kf, sample_size, tune_size)
+    for slide_index in range(t_total-t_interval):
+        Y_slide = Y[:, slide_index:(slide_index + t_interval)]
+        run_model(index, slide_index, Y_slide, mFunc, Struct, Dist, n, kernel, lambdaw, Kf, sample_size, tune_size)
