@@ -177,9 +177,9 @@ for index in index_list:
     df_previous = pd.read_csv(out_dir + date.today().strftime("%m_%d_%y") + "_sample_size_" + str(sample_size) + "_index_" + str(index) + ".csv")
     # fix lambdaw and Kf
     # lambdaw obtained from previsous results
-    lambdaw = df_previous[df_previous.columns[df_previous.columns.str.startswith("lambdaw")]].mean().mean()
+    lambdaw = np.squeeze(df_previous[df_previous.columns[df_previous.columns.str.startswith("lambdaw")]].median(axis = 1).values())
     # Kf obtained from previous results
-    Kf = df_previous[df_previous.columns[df_previous.columns.str.startswith("Kf")]].mean().mean()
+    Kf = np.squeeze(df_previous[df_previous.columns[df_previous.columns.str.startswith("Kf")]].median(axis = 1).values())
     
     os.chdir(in_dir + str(index))
     Y = get_data(data_filename)
