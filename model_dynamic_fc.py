@@ -175,11 +175,10 @@ tune_size = 500 ## make it smaller for dynamic FC
 for index in index_list:
     # obtain the previous results
     df_previous = pd.read_csv(out_dir + date.today().strftime("%m_%d_%y") + "_sample_size_" + str(sample_size) + "_index_" + str(index) + ".csv")
-    # fix lambdaw and Kf
-    # lambdaw obtained from previsous results
-    lambdaw = np.squeeze(df_previous[df_previous.columns[df_previous.columns.str.startswith("lambdaw")]].median(axis = 1).values())
-    # Kf obtained from previous results
-    Kf = np.squeeze(df_previous[df_previous.columns[df_previous.columns.str.startswith("Kf")]].median(axis = 1).values())
+    # lambdaw estimated from the median of previsous results, (105, )
+    lambdaw = np.squeeze(df_previous[df_previous.columns[df_previous.columns.str.startswith("lambdaw")]].median(axis = 0).values)
+    # Kf estimated from the median of previsous results, (105, )
+    Kf = np.squeeze(df_previous[df_previous.columns[df_previous.columns.str.startswith("Kf")]].median(axis = 0).values)
     
     os.chdir(in_dir + str(index))
     Y = get_data(data_filename)
